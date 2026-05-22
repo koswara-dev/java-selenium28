@@ -10,18 +10,29 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class TextboxText {
 
-    @Test
-    public void testBiodata() {
-        WebDriver driver = new FirefoxDriver();
+    WebDriver driver;
+    JavascriptExecutor js;
+    WebDriverWait wait;
+
+    @BeforeClass
+    public void Setup() {
+        driver = new FirefoxDriver();
         driver.get("https://demoqa.com/text-box");
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        js = (JavascriptExecutor) driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+    }
+
+    @Test(priority = 2)
+    public void testBiodata() {
 
         // Fullname
         WebElement txtFullname = driver.findElement(By.id("userName"));
@@ -36,21 +47,40 @@ public class TextboxText {
         WebElement txtPermanentAddress = driver.findElement(By.id("permanentAddress"));
         txtPermanentAddress.sendKeys("Jakarta");
         // scroll 500px
-        js.executeScript("window.scrollBy(0, 500);", "");
+        // js.executeScript("window.scrollBy(0, 500);", "");
+        // scroll to element
+        js.executeScript("arguments[0].scrollIntoView(true);", txtPermanentAddress);
         // Submit
         WebElement btnSubmit = driver.findElement(By.id("submit"));
         wait.until(ExpectedConditions.elementToBeClickable(btnSubmit));
         btnSubmit.click();
 
         // Delay
-        delay(2);
+        delay(5);
 
         String textCurrentAddress = driver.findElement(By.id("output")).getText();
         Assert.assertTrue(textCurrentAddress.contains("Juara Coding"));
 
-        // Tutup Browser
-        driver.quit();
+    }
 
+    // test scenario 2 get title & current url
+    @Test(priority = 1)
+    public void testGetTitle() {
+
+        String title = driver.getTitle();
+        String currentURL = driver.getCurrentUrl();
+
+        System.out.println("Title: " + title);
+        System.out.println("Current URL: " + currentURL);
+
+        Assert.assertEquals(title, "demosite");
+
+        delay(5);
+    }
+
+    @AfterClass
+    public void teardown() {
+        driver.quit();
     }
 
     static void delay(long detik) {
