@@ -17,7 +17,6 @@ import org.testng.annotations.Test;
 public class TextboxText {
 
     WebDriver driver;
-    JavascriptExecutor js;
     WebDriverWait wait;
 
     @BeforeClass
@@ -25,8 +24,7 @@ public class TextboxText {
         driver = new FirefoxDriver();
         driver.get("https://demoqa.com/text-box");
         driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
-        js = (JavascriptExecutor) driver;
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
     }
@@ -49,11 +47,12 @@ public class TextboxText {
         // scroll 500px
         // js.executeScript("window.scrollBy(0, 500);", "");
         // scroll to element
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", txtPermanentAddress);
         // Submit
         WebElement btnSubmit = driver.findElement(By.id("submit"));
         wait.until(ExpectedConditions.elementToBeClickable(btnSubmit));
-        btnSubmit.click();
+        js.executeScript("arguments[0].click();", btnSubmit);
 
         // Delay
         delay(5);
