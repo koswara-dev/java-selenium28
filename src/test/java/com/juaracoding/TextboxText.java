@@ -3,9 +3,12 @@ package com.juaracoding;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,6 +20,9 @@ public class TextboxText {
         driver.get("https://demoqa.com/text-box");
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
         // Fullname
         WebElement txtFullname = driver.findElement(By.id("userName"));
         txtFullname.sendKeys("Juara Coding");
@@ -29,8 +35,11 @@ public class TextboxText {
         // Permanent Address
         WebElement txtPermanentAddress = driver.findElement(By.id("permanentAddress"));
         txtPermanentAddress.sendKeys("Jakarta");
+        // scroll 500px
+        js.executeScript("window.scrollBy(0, 500);", "");
         // Submit
         WebElement btnSubmit = driver.findElement(By.id("submit"));
+        wait.until(ExpectedConditions.elementToBeClickable(btnSubmit));
         btnSubmit.click();
 
         // Delay
