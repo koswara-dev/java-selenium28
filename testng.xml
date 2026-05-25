@@ -8,4 +8,9 @@
         </classes>
     </test>
 
+    <test name="Web Tables Tests">
+        <classes>
+            <class name="com.juaracoding.WebTablesTest" />
+        </classes>
+    </test>
 </suite>
