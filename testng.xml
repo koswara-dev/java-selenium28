@@ -13,4 +13,10 @@
             <class name="com.juaracoding.WebTablesTest" />
         </classes>
     </test>
+
+    <test name="Student Registration Tests">
+        <classes>
+            <class name="com.juaracoding.StudentRegistrationTest" />
+        </classes>
+    </test>
 </suite>
