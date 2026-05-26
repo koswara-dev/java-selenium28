@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Test Suite">
 
-    <test name="Textbox Tests">
+    <!-- <test name="Textbox Tests">
         <classes>
             <class name="com.juaracoding.TextboxText" />
         </classes>
@@ -12,11 +12,23 @@
         <classes>
             <class name="com.juaracoding.WebTablesTest" />
         </classes>
-    </test>
+    </test> -->
 
-    <test name="Student Registration Tests">
+    <!-- <test name="Student Registration Tests">
         <classes>
             <class name="com.juaracoding.StudentRegistrationTest" />
+        </classes>
+    </test> -->
+
+    <!-- <test name="Alert Tab Modal Tests">
+        <classes>
+            <class name="com.juaracoding.AlertTabModalTest" />
+        </classes>
+    </test> -->
+
+    <test name="Actions Test">
+        <classes>
+            <class name="com.juaracoding.ActionsTest" />
         </classes>
     </test>
 </suite>
