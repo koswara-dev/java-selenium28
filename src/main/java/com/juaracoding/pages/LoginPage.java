@@ -58,14 +58,16 @@ public class LoginPage {
     public void login(String username, String password) {
         // Clear username if not empty, by selecting all and backspace
         wait.until(ExpectedConditions.visibilityOf(txtUsername));
-        txtUsername.sendKeys(org.openqa.selenium.Keys.chord(org.openqa.selenium.Keys.CONTROL, "a"), org.openqa.selenium.Keys.BACK_SPACE);
+        txtUsername.sendKeys(org.openqa.selenium.Keys.chord(org.openqa.selenium.Keys.CONTROL, "a"),
+                org.openqa.selenium.Keys.BACK_SPACE);
         if (username != null && !username.isEmpty()) {
             txtUsername.sendKeys(username);
         }
 
         // Clear password if not empty
         wait.until(ExpectedConditions.visibilityOf(txtPassword));
-        txtPassword.sendKeys(org.openqa.selenium.Keys.chord(org.openqa.selenium.Keys.CONTROL, "a"), org.openqa.selenium.Keys.BACK_SPACE);
+        txtPassword.sendKeys(org.openqa.selenium.Keys.chord(org.openqa.selenium.Keys.CONTROL, "a"),
+                org.openqa.selenium.Keys.BACK_SPACE);
         if (password != null && !password.isEmpty()) {
             txtPassword.sendKeys(password);
         }
