@@ -2,8 +2,8 @@ package com.juaracoding;
 
 import java.time.Duration;
 import com.juaracoding.pages.WebTablesPage;
+import com.juaracoding.drivers.DriverSingleton;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -16,11 +16,11 @@ public class WebTablesTest {
 
     @BeforeClass
     public void setup() {
-        driver = new FirefoxDriver();
+        String browser = System.getProperty("browser", "chrome");
+        DriverSingleton.getInstance(browser);
+        driver = DriverSingleton.getDriver();
         driver.get("https://demoqa.com/webtables");
-        driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         webTablesPage = new WebTablesPage(driver);
     }
 
@@ -211,9 +211,7 @@ public class WebTablesTest {
 
     @AfterClass
     public void teardown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        DriverSingleton.closeObjectInstance();
     }
 
     private void delay(long detik) {

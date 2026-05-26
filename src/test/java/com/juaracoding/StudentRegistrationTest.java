@@ -4,8 +4,8 @@ import java.io.File;
 import java.time.Duration;
 import java.util.Arrays;
 import com.juaracoding.pages.StudentRegistrationPage;
+import com.juaracoding.drivers.DriverSingleton;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -18,20 +18,18 @@ public class StudentRegistrationTest {
 
     @BeforeMethod
     public void setUp() {
-        driver = new FirefoxDriver();
+        String browser = System.getProperty("browser", "chrome");
+        DriverSingleton.getInstance(browser);
+        driver = DriverSingleton.getDriver();
         driver.get("https://demoqa.com/automation-practice-form");
-        driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         studentRegistrationPage = new StudentRegistrationPage(driver);
     }
 
     @AfterMethod
     public void tearDown() {
         delay(3);
-        if (driver != null) {
-            driver.quit();
-        }
+        DriverSingleton.closeObjectInstance();
     }
 
     @Test(priority = 1)

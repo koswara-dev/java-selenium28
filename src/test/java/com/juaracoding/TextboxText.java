@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import com.juaracoding.drivers.DriverSingleton;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -21,12 +21,12 @@ public class TextboxText {
 
     @BeforeClass
     public void Setup() {
-        driver = new FirefoxDriver();
+        String browser = System.getProperty("browser", "chrome");
+        DriverSingleton.getInstance(browser);
+        driver = DriverSingleton.getDriver();
         driver.get("https://demoqa.com/text-box");
-        driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
     }
 
     @Test(priority = 2)
@@ -79,7 +79,7 @@ public class TextboxText {
 
     @AfterClass
     public void teardown() {
-        driver.quit();
+        DriverSingleton.closeObjectInstance();
     }
 
     static void delay(long detik) {
