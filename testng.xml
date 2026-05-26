@@ -26,9 +26,15 @@
         </classes>
     </test> -->
 
-    <test name="Actions Test">
+    <!-- <test name="Actions Test">
         <classes>
             <class name="com.juaracoding.ActionsTest" />
+        </classes>
+    </test> -->
+
+    <test name="Login Tests">
+        <classes>
+            <class name="com.juaracoding.LoginTest" />
         </classes>
     </test>
 </suite>

@@ -79,18 +79,22 @@ public class StudentRegistrationPage {
 
     public void fillPersonalDetails(String firstName, String lastName, String email, String mobileNumber) {
         wait.until(ExpectedConditions.visibilityOf(txtFirstName));
-        
+
         txtFirstName.clear();
-        if (firstName != null) txtFirstName.sendKeys(firstName);
+        if (firstName != null)
+            txtFirstName.sendKeys(firstName);
 
         txtLastName.clear();
-        if (lastName != null) txtLastName.sendKeys(lastName);
+        if (lastName != null)
+            txtLastName.sendKeys(lastName);
 
         txtUserEmail.clear();
-        if (email != null) txtUserEmail.sendKeys(email);
+        if (email != null)
+            txtUserEmail.sendKeys(email);
 
         txtMobile.clear();
-        if (mobileNumber != null) txtMobile.sendKeys(mobileNumber);
+        if (mobileNumber != null)
+            txtMobile.sendKeys(mobileNumber);
     }
 
     public void chooseGender(String genderName) {
@@ -107,16 +111,17 @@ public class StudentRegistrationPage {
     public void setDateOfBirth(String day, String month, String year) {
         js.executeScript("arguments[0].scrollIntoView(true);", txtDateOfBirth);
         js.executeScript("arguments[0].click();", txtDateOfBirth);
-        
+
         wait.until(ExpectedConditions.visibilityOf(selectMonth));
         new Select(selectMonth).selectByVisibleText(month);
-        
+
         wait.until(ExpectedConditions.visibilityOf(selectYear));
         new Select(selectYear).selectByVisibleText(year);
-        
+
         // Padded day (e.g. 25 -> 025, 5 -> 005)
         String paddedDay = String.format("%03d", Integer.parseInt(day));
-        String xpathDay = "//div[contains(@class, 'react-datepicker__day--" + paddedDay + "') and not(contains(@class, 'react-datepicker__day--outside-month'))]";
+        String xpathDay = "//div[contains(@class, 'react-datepicker__day--" + paddedDay
+                + "') and not(contains(@class, 'react-datepicker__day--outside-month'))]";
         WebElement dayElement = driver.findElement(By.xpath(xpathDay));
         js.executeScript("arguments[0].click();", dayElement);
     }
@@ -161,18 +166,18 @@ public class StudentRegistrationPage {
             js.executeScript("arguments[0].scrollIntoView(true);", dropState);
             wait.until(ExpectedConditions.elementToBeClickable(dropState));
             js.executeScript("arguments[0].click();", dropState);
-            
+
             WebElement inputState = driver.findElement(By.xpath("//div[@id='state']//input"));
             inputState.sendKeys(stateName);
             inputState.sendKeys(Keys.ENTER);
             sleep(1000);
         }
-        
+
         if (cityName != null && !cityName.isEmpty()) {
             js.executeScript("arguments[0].scrollIntoView(true);", dropCity);
             wait.until(ExpectedConditions.elementToBeClickable(dropCity));
             js.executeScript("arguments[0].click();", dropCity);
-            
+
             WebElement inputCity = driver.findElement(By.xpath("//div[@id='city']//input"));
             inputCity.sendKeys(cityName);
             inputCity.sendKeys(Keys.ENTER);
